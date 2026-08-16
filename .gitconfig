@@ -1,0 +1,8 @@
+[gpg]
+	format = ssh
+[user]
+	signingkey = /home/johan/.ssh/id_ed25519.pub
+	name = Johan Schuijt
+	email = johan@resolve.works
+[commit]
+	gpgsign = true
