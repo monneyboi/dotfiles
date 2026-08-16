@@ -8,7 +8,8 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster"
 DEFAULT_USER="johan"
 
-export BRAVE_API_KEY=BSA44Q29c8tkwU2mr2wSjQ_PluvTevT
+# Secrets (API keys etc.) live in ~/.zshrc.local, which is untracked
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # Tell ssh-add where ssh-agent lives
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
