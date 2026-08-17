@@ -1,5 +1,6 @@
 [Unit]
 Description=Restic backup of ~/Documents
+OnFailure=notify-failure@%n.service
 
 [Service]
 Type=oneshot
