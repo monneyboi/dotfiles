@@ -4,7 +4,7 @@ Description=Run restic backup daily
 [Timer]
 OnCalendar=*-*-* 14:00:00
 Persistent=true
-RandomizedDelaySec=5m
+RandomizedDelaySec=1h
 
 [Install]
 WantedBy=timers.target

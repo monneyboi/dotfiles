@@ -6,5 +6,5 @@ OnFailure=notify-failure@%n.service
 Type=oneshot
 Environment=RESTIC_REPOSITORY=%h/Backup
 Environment="RESTIC_PASSWORD_COMMAND=secret-tool lookup service restic"
-ExecStart=/usr/sbin/restic backup %h/Documents --verbose
-ExecStartPost=/usr/sbin/restic forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 1 --verbose
+ExecStart=/usr/sbin/restic backup --retry-lock=30m %h/Documents --verbose
+ExecStartPost=/usr/sbin/restic forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 1 --retry-lock=30m --verbose

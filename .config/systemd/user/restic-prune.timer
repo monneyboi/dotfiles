@@ -4,7 +4,6 @@ Description=Run restic maintenance monthly
 [Timer]
 OnCalendar=*-*-01 16:00:00
 Persistent=true
-RandomizedDelaySec=5m
 
 [Install]
 WantedBy=timers.target
