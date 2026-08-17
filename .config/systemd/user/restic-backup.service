@@ -1,0 +1,8 @@
+[Unit]
+Description=Restic backup of ~/Documents
+
+[Service]
+Type=oneshot
+Environment=RESTIC_REPOSITORY=%h/Backup
+Environment="RESTIC_PASSWORD_COMMAND=secret-tool lookup service restic"
+ExecStart=/usr/sbin/restic backup %h/Documents --verbose
