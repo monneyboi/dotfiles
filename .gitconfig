@@ -6,3 +6,5 @@
 	email = johan@resolve.works
 [commit]
 	gpgsign = true
+[init]
+	defaultBranch = main

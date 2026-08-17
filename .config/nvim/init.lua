@@ -1,6 +1,7 @@
 -- ~/.config/nvim/init.lua
 -- Ported from a 10-year vimscript config (init.vim) to modern Lua on Neovim 0.12.
--- Plugin manager: lazy.nvim. Completion: blink.cmp. LSP: native vim.lsp + mason.
+-- Plugin manager: lazy.nvim. Completion: blink.cmp. LSP: native vim.lsp API
+-- (vim.lsp.config/enable) with server binaries from pacman, not mason.
 
 ------------------------------------------------------------------------------
 -- Leader (must be set before lazy so plugin mappings pick it up)
@@ -54,45 +55,44 @@ require("lazy").setup({
   },
 
   ----------------------------------------------------------------------------
-  -- LSP + tool management.
-  -- mason-lspconfig v2 auto-enables (vim.lsp.enable) every server it installs,
-  -- so there's no per-server vim.lsp.enable() boilerplate anymore.
+  -- LSP: Neovim's native API (0.11+). nvim-lspconfig only supplies the
+  -- per-server configs; we enable servers ourselves and pacman provides
+  -- the binaries (lua-language-server, pyright, typescript-language-server,
+  -- svelte-language-server).
   ----------------------------------------------------------------------------
   {
-    "mason-org/mason-lspconfig.nvim",
-    dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-      "saghen/blink.cmp",
-    },
+    "neovim/nvim-lspconfig",
+    dependencies = { "saghen/blink.cmp" },
     config = function()
-      -- Language servers: mason-lspconfig installs AND auto-enables these.
-      require("mason-lspconfig").setup({
-        ensure_installed = { "lua_ls", "pyright", "ts_ls", "svelte", "vimls" },
-      })
-
-      -- Non-LSP tools (formatters) handled by mason-tool-installer.
-      require("mason-tool-installer").setup({
-        ensure_installed = { "prettierd", "black" },
-      })
-
       -- Give every server blink.cmp's completion capabilities.
       vim.lsp.config("*", {
         capabilities = require("blink.cmp").get_lsp_capabilities(),
       })
 
-      -- Carried over from the old coc-settings.json: stop pyright type-checking.
+      -- Python split of labor (ruff docs' recommended pairing):
+      -- pyright = hover/completions only, ruff = linting + import sorting.
       vim.lsp.config("pyright", {
         settings = {
-          python = { analysis = { typeCheckingMode = "off" } },
+          pyright = { disableOrganizeImports = true }, -- ruff sorts imports
+          python = { analysis = { ignore = { "*" } } }, -- ruff does linting
         },
       })
+
+      -- ruff's built-in language server (in the ruff binary itself; the old
+      -- standalone ruff-lsp was archived in Dec 2025).
+      vim.lsp.config("ruff", {
+        on_attach = function(client, _)
+          -- Defer hover to pyright, which has richer type information.
+          client.server_capabilities.hoverProvider = false
+        end,
+      })
+
+      vim.lsp.enable({ "lua_ls", "pyright", "ts_ls", "svelte", "ruff" })
     end,
   },
 
-  ----------------------------------------------------------------------------
-  -- Formatting on save (formatter.nvim) — black for Python, prettierd for rest.
+  -- Formatting on save (formatter.nvim) — ruff format (black-style) for Python,
+  -- prettier for the rest. Both installed via pacman (ruff, prettier).
   ----------------------------------------------------------------------------
   {
     "mhartington/formatter.nvim",
@@ -101,8 +101,8 @@ require("lazy").setup({
         logging = true,
         log_level = vim.log.levels.WARN,
         filetype = {
-          python = { require("formatter.filetypes.python").black },
-          ["*"] = { require("formatter.defaults.prettierd") },
+          python = { require("formatter.filetypes.python").ruff },
+          ["*"] = { require("formatter.defaults.prettier") },
         },
       })
     end,
