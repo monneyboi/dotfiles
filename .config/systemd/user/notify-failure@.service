@@ -1,0 +1,7 @@
+[Unit]
+Description=Desktop notification for failed unit %i
+
+[Service]
+Type=oneshot
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+ExecStart=/usr/bin/notify-send -u critical -a systemd "%i failed" "Check: journalctl --user -u %i"

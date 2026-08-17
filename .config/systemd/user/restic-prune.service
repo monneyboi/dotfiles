@@ -1,0 +1,10 @@
+[Unit]
+Description=Restic monthly maintenance (prune + integrity check)
+OnFailure=notify-failure@%n.service
+
+[Service]
+Type=oneshot
+Environment=RESTIC_REPOSITORY=%h/Backup
+Environment="RESTIC_PASSWORD_COMMAND=secret-tool lookup service restic"
+ExecStart=/usr/sbin/restic prune --verbose
+ExecStart=/usr/sbin/restic check --read-data
