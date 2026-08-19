@@ -9,5 +9,3 @@ Type=oneshot
 SuccessExitStatus=11
 Environment="RESTIC_PASSWORD_COMMAND=secret-tool lookup service restic"
 Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
-ExecStart=/usr/bin/restic prune --verbose
-ExecStart=/usr/bin/restic check
