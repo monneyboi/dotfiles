@@ -25,6 +25,8 @@ export FZF_DEFAULT_COMMAND='rg --files --follow --hidden -g "!{.git,.hg,node_mod
 alias vim="nvim"
 alias dig="drill"
 alias dotfiles="git --git-dir=$HOME/.dotfiles.git --work-tree=$HOME"
+alias restic-local='restic -r ~/Backup --password-command "secret-tool lookup service restic"'
+alias restic-hetzner='restic -r rclone:restic -o "rclone.program=ssh storagebox" --password-command "secret-tool lookup service restic"'
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/

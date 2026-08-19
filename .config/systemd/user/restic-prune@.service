@@ -7,5 +7,8 @@ Type=oneshot
 # 11 = "repository is already locked": the other machine won the race and is
 # running maintenance; treat as success so OnFailure doesn't fire.
 SuccessExitStatus=11
+EnvironmentFile=%h/.config/restic/%i.env
 Environment="RESTIC_PASSWORD_COMMAND=secret-tool lookup service restic"
 Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/restic prune --verbose
+ExecStart=/usr/bin/restic check --read-data

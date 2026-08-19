@@ -1,8 +1,11 @@
 [Unit]
-Description=Restic backup of ~/Documents (%i)
+Description=Restic backup (%i)
 OnFailure=notify-failure@%n.service
 
 [Service]
 Type=oneshot
+EnvironmentFile=%h/.config/restic/%i.env
 Environment="RESTIC_PASSWORD_COMMAND=secret-tool lookup service restic"
 Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/restic backup --retry-lock=30m --files-from=%h/.config/restic/backup-paths --verbose
+ExecStartPost=/usr/bin/restic forget --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 1 --retry-lock=30m --verbose
