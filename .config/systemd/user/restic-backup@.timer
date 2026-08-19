@@ -1,5 +1,5 @@
 [Unit]
-Description=Run restic backup daily
+Description=Run restic backup daily (%i)
 
 [Timer]
 OnCalendar=*-*-* 14:00:00
