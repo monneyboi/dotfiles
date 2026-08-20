@@ -44,3 +44,8 @@ export WEBKIT_DISABLE_DMABUF_RENDERER=1
 
 # Customize to your needs...
 export PATH=/usr/bin:/opt/google-cloud-cli/bin:$CUDA_HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/pnpm/bin
+
+# Package caches live under Projects so uv and pnpm can hardlink from cache
+# to target (venvs, node_modules) within one filesystem/mount.
+export UV_CACHE_DIR="$HOME/Projects/.cache/uv"
+export pnpm_config_store_dir="$HOME/Projects/.cache/pnpm-store"
