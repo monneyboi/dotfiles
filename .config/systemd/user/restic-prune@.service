@@ -10,5 +10,5 @@ SuccessExitStatus=11
 EnvironmentFile=%h/.config/restic/%i.env
 Environment="RESTIC_PASSWORD_COMMAND=secret-tool lookup service restic"
 Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
-ExecStart=/usr/bin/restic prune --verbose
-ExecStart=/usr/bin/restic check --read-data
+ExecStart=/usr/bin/restic prune --verbose -o "rclone.program=%h/.config/restic/restic-rclone-router.sh" -o rclone.timeout=5m
+ExecStart=/usr/bin/restic check --read-data -o "rclone.program=%h/.config/restic/restic-rclone-router.sh" -o rclone.timeout=5m
