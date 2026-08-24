@@ -15,8 +15,6 @@ DEFAULT_USER="johan"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 export MAKEFLAGS=-j8
-export GOPATH=$HOME/go
-export GOBIN=$GOPATH/bin
 
 export EDITOR=nvim
 export FZF_DEFAULT_COMMAND='rg --files --follow --hidden -g "!{.git,.hg,node_modules,dist}"'
@@ -33,10 +31,9 @@ alias restic-router='restic -r rclone:router:FRITZ.NAS/Samsung-PortableSSDT5-01/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git)
 
-source /opt/google-cloud-cli/completion.zsh.inc
-source /opt/google-cloud-cli/path.zsh.inc
-
 source $ZSH/oh-my-zsh.sh
+
+export PNPM_HOME=$HOME/.local/share/pnpm
 
 export CUDA_HOME=/opt/cuda
 export LD_LIBRARY_PATH=$CUDA_HOME/lib64:${LD_LIBRARY_PATH:-}
@@ -49,3 +46,6 @@ export PATH=/usr/bin:/opt/google-cloud-cli/bin:$CUDA_HOME/bin:$HOME/.cargo/bin:$
 # to target (venvs, node_modules) within one filesystem/mount.
 export UV_CACHE_DIR="$HOME/Projects/.cache/uv"
 export pnpm_config_store_dir="$HOME/Projects/.cache/pnpm-store"
+
+source /opt/google-cloud-cli/completion.zsh.inc
+source /opt/google-cloud-cli/path.zsh.inc
