@@ -46,6 +46,7 @@ export PATH=/usr/bin:/opt/google-cloud-cli/bin:$CUDA_HOME/bin:$HOME/.cargo/bin:$
 export UV_PREVIEW_FEATURES=centralized-project-envs
 # Keep pnpm's content and global virtual stores on its mounted default path;
 # project node_modules symlink to them across Ward mounts.
+export pnpm_config_store_dir="$PNPM_HOME/store"
 export pnpm_config_enable_global_virtual_store=true
 
 source /opt/google-cloud-cli/completion.zsh.inc
