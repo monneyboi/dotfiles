@@ -42,15 +42,11 @@ export WEBKIT_DISABLE_DMABUF_RENDERER=1
 # Customize to your needs...
 export PATH=/usr/bin:/opt/google-cloud-cli/bin:$CUDA_HOME/bin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/pnpm/bin
 
-# Package caches live under Projects so uv and pnpm can hardlink from cache
-# to target (venvs, node_modules) within one filesystem/mount.
-export UV_CACHE_DIR="$HOME/Projects/.cache/uv"
-# Keep managed Python installations durable: virtual environments symlink to them.
-export UV_PYTHON_INSTALL_DIR="$HOME/Projects/.local/share/uv/python"
-# Store project environments inside the uv cache; project .venv becomes a
-# symlink, so environments stay on the Projects mount next to the package cache.
+# Store project environments in uv's mounted default cache; project .venv is a symlink.
 export UV_PREVIEW_FEATURES=centralized-project-envs
-export pnpm_config_store_dir="$HOME/Projects/.cache/pnpm-store"
+# Keep pnpm's content and global virtual stores on its mounted default path;
+# project node_modules symlink to them across Ward mounts.
+export pnpm_config_enable_global_virtual_store=true
 
 source /opt/google-cloud-cli/completion.zsh.inc
 source /opt/google-cloud-cli/path.zsh.inc
