@@ -1,0 +1,7 @@
+#!/bin/sh
+set -eu
+
+BRAVE_API_KEY=$(/usr/bin/secret-tool lookup service brave)
+export BRAVE_API_KEY
+
+exec "$HOME/.local/share/pnpm/bin/pi" "$@"

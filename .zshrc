@@ -8,9 +8,6 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster"
 DEFAULT_USER="johan"
 
-# Secrets (API keys etc.) live in ~/.zshrc.local, which is untracked
-[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
-
 # Tell ssh-add where ssh-agent lives
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
