@@ -48,3 +48,7 @@ export pnpm_config_enable_global_virtual_store=true
 
 source /opt/google-cloud-cli/completion.zsh.inc
 source /opt/google-cloud-cli/path.zsh.inc
+
+# Android SDK (GrapheneOS standalone-SDK layout)
+export ANDROID_HOME=$HOME/android/sdk
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH

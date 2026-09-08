@@ -8,3 +8,7 @@
 	gpgsign = true
 [init]
 	defaultBranch = main
+[url "ssh://monneyboi@gerrit.wikimedia.org:29418/"]
+	insteadOf = https://gerrit.wikimedia.org/r/
+[gitreview]
+	username = monneyboi
